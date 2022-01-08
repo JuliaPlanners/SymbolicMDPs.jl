@@ -42,3 +42,5 @@ vector_env = SymbolicRLEnv(Vector, domain, problem)
  using ReinforcementLearning
  env = convert(RLBase.AbstractEnv, env)
  ```
+
+ For an example of tabular Q-learning on a small Blocksworld problem with two blocks, see [`examples/tabular_q.jl`](examples/tabular_q.jl).
