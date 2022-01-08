@@ -3,7 +3,14 @@ uuid = "38f6d1e2-857b-4223-afbf-4d1b1bf58015"
 authors = ["Xuan <tanqazx@gmail.com> and contributors"]
 version = "0.1.0"
 
+[deps]
+PDDL = "2c8894f9-daa1-498a-9e3a-26edd9623db8"
+POMDPModelTools = "08074719-1b2a-587c-a292-00f91cc44415"
+POMDPs = "a93abf59-7444-517b-a68a-c42f96afdd7d"
+Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+
 [compat]
+PDDL = "0.2"
 julia = "1"
 
 [extras]
