@@ -1,8 +1,8 @@
 # SymbolicMDPs.jl
 
-**SymbolicMDPs.jl** wraps the  [PDDL.jl](https://github.com/JuliaPlanners/PDDL.jl) interface for PDDL domains and problems within the [POMDPs.jl](https://juliapomdp.github.io/POMDPs.jl/latest/) interface for Markov decision processes (MDPs).
+**SymbolicMDPs.jl** wraps the  [PDDL.jl](https://github.com/JuliaPlanners/PDDL.jl) interface for [PDDL](https://en.wikipedia.org/wiki/Planning_Domain_Definition_Language) domains and problems within the [POMDPs.jl](https://juliapomdp.github.io/POMDPs.jl/latest/) interface for [Markov decision processes (MDPs)](https://en.wikipedia.org/wiki/Markov_decision_process).
 
-Since POMDPs.jl supports the reinforcement learning interface defined by [CommonRLInterface.jl](https://github.com/JuliaReinforcementLearning/CommonRLInterface.jl), this package also allows PDDL domains to be treated as RL environments that are compatible with libraries such as [ReinforcementLearning.jl](https://github.com/JuliaReinforcementLearning/ReinforcementLearning.jl).
+Since POMDPs.jl supports the reinforcement learning interface defined by [CommonRLInterface.jl](https://github.com/JuliaReinforcementLearning/CommonRLInterface.jl), this package also allows PDDL domains to be treated as RL environments compatible with libraries such as [ReinforcementLearning.jl](https://github.com/JuliaReinforcementLearning/ReinforcementLearning.jl).
 
 ## Installation
 
