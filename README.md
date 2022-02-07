@@ -6,9 +6,8 @@ Since POMDPs.jl supports the reinforcement learning interface defined by [Common
 
 ## Installation
 
-SymbolicMDPs.jl currently requires the latest development version of PDDL.jl. Install both via the `Pkg` REPL by running:
+Install via the `Pkg` REPL by running:
 ```julia
-add https://github.com/JuliaPlanners/PDDL.jl.git
 add https://github.com/JuliaPlanners/SymbolicMDPs.jl.git
 ```
 
