@@ -122,7 +122,7 @@ end
 
 MDP wrapper for a ground PDDL domain.
 """
-struct SymbolicMDP{D<:Domain,S<:State,SS<:SymbolicStateSpace} <: MDP{S,Term}
+struct SymbolicMDP{D<:Domain,S<:State,SS<:SymbolicStateSpace,C} <: MDP{S,Term}
     domain::D
     init::S
     goal::Term
@@ -130,27 +130,31 @@ struct SymbolicMDP{D<:Domain,S<:State,SS<:SymbolicStateSpace} <: MDP{S,Term}
     discount::Float64
     states::SS
     actions::Vector{Compound}
+    a_cache::C
 end
 
 """
-    SymbolicMDP(domain, state, [goal, metric, discount])
+    SymbolicMDP(domain, state, [goal, metric, discount]; cache_actions=false)
 
 Construct a symbolic MDP from a PDDL `domain` and initial `state`.
 """
 function SymbolicMDP(domain::Domain, state::State,
-                     goal=pddl"(true)", metric=nothing, discount=1.0)
+                     goal=pddl"(true)", metric=nothing, discount=1.0;
+                     cache_actions::Bool=true)
     s_space = SymbolicStateSpace(domain, state)
     actions = Compound[act.term for act in PDDL.groundactions(domain, state)]
     actions = sort!(actions, lt=compare_terms)
-    return SymbolicMDP(domain, state, goal, metric, discount, s_space, actions)
+    a_cache = cache_actions ? Dict{UInt64,Vector{Compound}}() : nothing
+    return SymbolicMDP(domain, state, goal, metric, discount,
+                       s_space, actions, a_cache)
 end
 
 """
-    SymbolicMDP(domain, problem)
+    SymbolicMDP(domain, problem; cache_actions=false)
 
 Construct a symbolic MDP from a PDDL `domain` and `problem`.
 """
-function SymbolicMDP(domain::Domain, problem::Problem)
+function SymbolicMDP(domain::Domain, problem::Problem; options...)
     state = PDDL.initstate(domain, problem)
     goal = PDDL.get_goal(problem)
     metric = PDDL.get_metric(problem)
@@ -158,12 +162,14 @@ function SymbolicMDP(domain::Domain, problem::Problem)
         metric = metric.name == :minimize ?
             metric.args[1] : Compound(:-, metric.args)
     end
-    return SymbolicMDP(domain, state, goal, metric)
+    return SymbolicMDP(domain, state, goal, metric; options...)
 end
 
 POMDPs.states(m::SymbolicMDP) = m.states
 POMDPs.actions(m::SymbolicMDP) = m.actions
-POMDPs.actions(m::SymbolicMDP, s) = PDDL.available(m.domain, s)
+POMDPs.actions(m::SymbolicMDP, s) = m.a_cache isa Nothing ?
+    collect(PDDL.available(m.domain, s)) :
+    get!(() -> collect(PDDL.available(m.domain, s)), m.a_cache, hash(s))
 
 POMDPs.initialstate(m::SymbolicMDP) =
     Deterministic(m.init)
@@ -223,10 +229,10 @@ and need not correspond to the type actually returned.
 """
 SymbolicRLEnv(S::Type, mdp::SymbolicMDP) =
     MDPCommonRLEnv{S}(mdp)
-SymbolicRLEnv(S::Type, domain::Domain, args...) =
-    SymbolicRLEnv(S, SymbolicMDP(domain, args...))
-SymbolicRLEnv(domain::Domain, args...) =
-    SymbolicRLEnv(Any, domain, args...)
+SymbolicRLEnv(S::Type, domain::Domain, args...; kwargs...) =
+    SymbolicRLEnv(S, SymbolicMDP(domain, args...; kwargs...))
+SymbolicRLEnv(domain::Domain, args...; kwargs...) =
+    SymbolicRLEnv(Any, domain, args...; kwargs...)
 
 CRL.@provide CRL.valid_action_mask(env::SymbolicMDPCommonRLEnv) =
     broadcast(in(CRL.valid_actions(env)), env.m.actions)
