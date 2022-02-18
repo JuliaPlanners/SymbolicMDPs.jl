@@ -11,10 +11,11 @@ import POMDPModelTools: MDPCommonRLEnv
 
 # Load PDDL functions
 import PDDL: PDDL, load_domain, load_problem, @pddl
+using PlanningDomains
 
-# Load and compile blocksworld domain and problem
-domain = load_domain(joinpath(@__DIR__, "blocksworld.pddl"))
-problem = load_problem(joinpath(@__DIR__, "bw-problem.pddl"))
+# Load and compile blocksworld domain and problem with 2 blocks
+domain = load_domain(JuliaPlannersRepo, "blocksworld")
+problem = load_problem(JuliaPlannersRepo, "blocksworld", "problem-1")
 domain, _ = PDDL.compiled(domain, problem)
 
 # Construct SymbolicMDP
