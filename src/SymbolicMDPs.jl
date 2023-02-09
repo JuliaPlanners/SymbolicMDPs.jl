@@ -6,8 +6,8 @@ using Random
 
 import PDDL: PDDL, Domain, Problem, State, Term, Compound, Const, @pddl_str
 import POMDPs: POMDPs, MDP
-import POMDPModelTools: Deterministic, Uniform, SparseCat
-import POMDPModelTools: CommonRLInterface, MDPCommonRLEnv
+import POMDPTools: Deterministic, Uniform, SparseCat, MDPCommonRLEnv
+import CommonRLInterface
 
 ## Utility functions ##
 

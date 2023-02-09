@@ -7,7 +7,7 @@ import ReinforcementLearningZoo: Flux.Descent
 
 # Import various MDP tools
 import POMDPs
-import POMDPModelTools: MDPCommonRLEnv
+import POMDPTools: MDPCommonRLEnv
 
 # Load PDDL functions
 import PDDL: PDDL, load_domain, load_problem, @pddl
