@@ -36,7 +36,7 @@ function SymbolicStateSpace(domain::Domain, state::State)
     statics = PDDL.infer_static_fluents(domain)
     # Extract and order fluent types and value ranges
     sigs = sort(collect(pairs(PDDL.get_fluents(domain))), by=first)
-    ftypes = (; (f => PDDL.GLOBAL_DATATYPES[sig.type]
+    ftypes = (; (f => PDDL.global_datatypes()[sig.type]
                  for (f, sig) in sigs if !(f in statics))...)
     franges = (; (f => typerange(ty) for (f, ty) in pairs(ftypes))...)
     # Construct list of all (non-static) ground fluents
