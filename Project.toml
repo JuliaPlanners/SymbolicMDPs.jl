@@ -4,15 +4,15 @@ authors = ["Xuan <tanqazx@gmail.com> and contributors"]
 version = "0.1.0"
 
 [deps]
+CommonRLInterface = "d842c3ba-07a1-494f-bbec-f5741b0a3e98"
 PDDL = "2c8894f9-daa1-498a-9e3a-26edd9623db8"
-POMDPModelTools = "08074719-1b2a-587c-a292-00f91cc44415"
+POMDPTools = "7588e00f-9cae-40de-98dc-e0c70c48cdd7"
 POMDPs = "a93abf59-7444-517b-a68a-c42f96afdd7d"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 
 [compat]
 PDDL = "0.2.1"
 POMDPs = "0.9"
-POMDPModelTools = "0.3"
 julia = "1"
 
 [extras]

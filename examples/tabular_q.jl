@@ -7,7 +7,7 @@ import ReinforcementLearningZoo: Flux.Descent
 
 # Import various MDP tools
 import POMDPs
-import POMDPModelTools: MDPCommonRLEnv
+import POMDPTools: MDPCommonRLEnv
 
 # Load PDDL functions
 import PDDL: PDDL, load_domain, load_problem, @pddl
@@ -24,7 +24,7 @@ mdp = SymbolicMDP(domain, problem)
 # Test successful plan to goal state using POMDPs.jl interface
 s = rand(POMDPs.initialstate(mdp))
 for act in PDDL.@pddl("(pick-up a)", "(stack a b)")
-    s = rand(POMDPs.transition(mdp, s, act))
+    global s = rand(POMDPs.transition(mdp, s, act))
 end
 @test POMDPs.isterminal(mdp, s)
 
