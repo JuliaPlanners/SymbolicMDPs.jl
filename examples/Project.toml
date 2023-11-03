@@ -1,6 +1,5 @@
 [deps]
 CommonRLInterface = "d842c3ba-07a1-494f-bbec-f5741b0a3e98"
-MCTS = "e12ccd36-dcad-5f33-8774-9175229e7b33"
 PDDL = "2c8894f9-daa1-498a-9e3a-26edd9623db8"
 POMDPTools = "7588e00f-9cae-40de-98dc-e0c70c48cdd7"
 POMDPs = "a93abf59-7444-517b-a68a-c42f96afdd7d"
